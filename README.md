@@ -5,30 +5,22 @@
 A lightweight, local-first web application engineered to transform standard task tracking into a structured, high-discipline training environment. Designed with a clean, low-friction, developer-centric terminal aesthetic, it helps track mid-to-long-term syllabus objectives, manage prep margins, and enforce strict execution windows.
 
 ---
+
 ## 🖥️ System Interface Telemetry
 
 ### Master Dashboard View
-<p align="center">
-  <img src="Assets/Screenshot_20260603_123201.png" width="100%" alt="CHRONOS_TRIAL Core Interface Dashboard" style="border-radius: 4px; border: 1px solid #1f2937;">
-</p>
+![CHRONOS_TRIAL Core Interface Dashboard](./Assets/Screenshot_20260603_123201.png)
 
 ---
 
 ### 🚨 Custom Multi-Stage Crimson Purge Protocol
 When a user initializes the `[ SYSTEM_WIPE ]` terminal override, a custom, dual-layer modal intercepts the native browser loops to enforce lockdown authorization:
 
-<table width="100%">
-  <tr>
-    <td width="50%" align="center" valign="top">
-      <strong>STAGE 01/02: Initialization Warning</strong><br><br>
-      <img src="Assets/Screenshot_20260603_123208.png" width="100%" alt="Stage 1 System Alert Overlays" style="border-radius: 4px; border: 1px solid #ff0033;">
-    </td>
-    <td width="50%" align="center" valign="top">
-      <strong>STAGE 02/02: Critical Lockdown Verification</strong><br><br>
-      <img src="Assets/Screenshot_20260603_123223.png" width="100%" alt="Stage 2 Absolute Purge Verification" style="border-radius: 4px; border: 1px solid #ff0033;">
-    </td>
-  </tr>
-</table>
+| STAGE 01/02: Initialization Warning | STAGE 02/02: Critical Lockdown Verification |
+| :---: | :---: |
+| ![Stage 1 System Alert Overlays](./Assets/Screenshot_20260603_123208.png) | ![Stage 2 Absolute Purge Verification](./Assets/Screenshot_20260603_123223.png) |
+
+---
 
 ## 🛠️ System Architecture
 
@@ -49,5 +41,3 @@ The ecosystem relies entirely on modern vanilla JavaScript APIs, requiring zero 
 * **Hard Overdue Enforcement:** The background engine scans system health every second. If an active task's timer drops below zero, it auto-fails instantly, locks out further progress editing, and permanently catalogs the attempt as a failure in the history logs.
 * **Persistent Historical Ledger:** An expandable, slide-out data table maintains a historical record of all completed (`CLEAR ✓`) and failed (`FAILED ✗`) trials across browser reboots.
 * **Fully Responsive Engine:** Incorporates explicit structural breakpoints ensuring smooth operation across ultra-wide desktop monitors down to mobile touchscreen viewports.
-
----
