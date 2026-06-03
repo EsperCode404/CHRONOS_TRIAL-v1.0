@@ -1,0 +1,620 @@
+/* ==========================================================================
+   CHRONOS-TRIAL V1.0 // CORE GRAPHICS ENGINE
+   DESIGN PARADIGM: TACTICAL TERMINAL // BLOOD-GLOW INTERCEPT
+   ========================================================================== */
+
+:root {
+    /* Color Palette Matrix */
+    --bg-dark: #0a0a0a;
+    --panel-bg: #111414;
+    --panel-bg-accent: #161b1b;
+    
+    /* Interactive Highlights */
+    --neon-cyan: #00ffc8;
+    --neon-cyan-dim: rgba(0, 255, 200, 0.15);
+    --neon-cyan-glow: rgba(0, 255, 200, 0.4);
+    
+    /* High-Stakes / Failure States (Blood Glow Protocol) */
+    --blood-glow: #ff0033;
+    --blood-glow-dim: rgba(255, 0, 51, 0.08);
+    --blood-glow-bright: rgba(255, 0, 51, 0.5);
+    
+    /* Typography & Borders */
+    --text-main: #e5e7eb;
+    --text-muted: #6b7280;
+    --border-color: #1e2424;
+    
+    /* Font Vector Groups */
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-display: 'Orbitron', sans-serif;
+}
+
+/* --- SYSTEM RESET & ANTI-SCALING PROTOCOLS --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* Prevents blue touch highlight flashing on mobile layout components */
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    /* Mobile Shield: Prevents horizontal overflow tearing */
+    overflow-x: hidden; 
+}
+
+/* --- CRT COMPONENT LAYER (SCANLINES & RADIAL BLUR) --- */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
+    background-size: 100% 4px, 6px 100%;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Ambience Backglow Layer */
+.cyber-overlay {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    top: 20%;
+    left: -10%;
+    background: radial-gradient(circle, var(--blood-glow-dim) 0%, transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: -1;
+    animation: corePulse 6s ease-in-out infinite;
+}
+
+/* --- GLOBAL CONTAINER FRAMEWORK --- */
+.interface-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- 1. HEADER & REAL-TIME SYSTEM CLOCK --- */
+.system-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+.logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--neon-cyan);
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--neon-cyan-glow);
+}
+
+.uptime-block, .clock-block {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+#global-clock {
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.network-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--neon-cyan);
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--neon-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--neon-cyan);
+    animation: terminalPulse 2s infinite;
+}
+
+/* --- CHARACTER STATUS PANEL (STATS & EXP BAR) --- */
+.profile-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.panel-header {
+    background: var(--panel-bg-accent);
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    border-left: 3px solid var(--neon-cyan);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.profile-grid {
+    display: flex;
+    padding: 16px;
+    gap: 24px;
+    align-items: center;
+}
+
+.level-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #151a1a;
+    border: 1px solid var(--neon-cyan-dim);
+    padding: 12px 20px;
+    border-radius: 4px;
+    min-width: 90px;
+}
+
+.level-badge .lbl { 
+    font-size: 0.65rem; 
+    color: var(--text-muted); 
+    font-weight: 700;
+}
+
+.level-badge .val { 
+    font-family: var(--font-display); 
+    font-size: 2rem; 
+    font-weight: 900; 
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan-glow);
+}
+
+.xp-container { 
+    flex-grow: 1; 
+}
+
+.xp-labels { 
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 0.75rem; 
+    margin-bottom: 8px; 
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+.xp-bar-outer { 
+    background: #070909; 
+    border: 1px solid #222a2a; 
+    height: 16px; 
+    border-radius: 3px; 
+    padding: 2px; 
+    overflow: hidden;
+}
+
+.xp-bar-inner { 
+    background: linear-gradient(90deg, #00b38c, var(--neon-cyan)); 
+    height: 100%; 
+    box-shadow: 0 0 10px var(--neon-cyan-glow); 
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+.status-ticker { 
+    background: #090c0c; 
+    font-size: 0.75rem; 
+    padding: 8px 16px; 
+    color: var(--text-muted); 
+    border-top: 1px solid var(--border-color); 
+}
+
+/* --- 2. RUNTIME TWO-COLUMN WORKSPACE --- */
+.workspace-layout {
+    display: grid;
+    grid-template-columns: 10fr 17fr;
+    gap: 20px;
+}
+
+.control-panel, .display-panel, .archive-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+}
+
+/* --- MULTI-DAY QUEST DEPLOYMENT MODULE (FORM) --- */
+.deployment-form { 
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 16px; 
+}
+
+.form-group { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+}
+
+.form-group label { 
+    font-size: 0.75rem; 
+    color: var(--text-muted); 
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.form-row { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 16px; 
+}
+
+input[type="text"], select {
+    background: #070909;
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    color: #ffffff;
+    font-family: var(--font-mono);
+    outline: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+input[type="text"]:focus, select:focus { 
+    border-color: var(--neon-cyan); 
+    box-shadow: 0 0 8px var(--neon-cyan-dim);
+}
+
+.btn-submit {
+    background: var(--neon-cyan-dim);
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    padding: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    margin-top: 8px;
+}
+
+.btn-submit:hover { 
+    background: var(--neon-cyan); 
+    color: #000000; 
+    box-shadow: 0 0 15px var(--neon-cyan); 
+}
+
+/* --- ACTIVE TRIAL BOARDS & CUSTOM CARD MODULES --- */
+.quests-grid { 
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 16px; 
+    max-height: 580px; 
+    overflow-y: auto; 
+}
+
+.empty-notice { 
+    color: var(--text-muted); 
+    font-size: 0.85rem; 
+    text-align: center; 
+    padding: 40px 0; 
+}
+
+/* Base Quest Card Component */
+.quest-card {
+    background: #141919;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--neon-cyan);
+    padding: 16px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Difficulty Weight Class Variable Modifiers */
+.quest-card.bronze { border-left-color: #cd7f32; }
+.quest-card.silver { border-left-color: #cbd5e1; }
+.quest-card.gold   { border-left-color: #fbbf24; }
+.quest-card.shadow { border-left-color: #a855f7; }
+
+/* HARD RUNTIME FAILURE MODIFIER (BLOOD GLOW OVERRIDE) */
+.quest-card.failed {
+    border-left-color: var(--blood-glow) !important;
+    background: linear-gradient(135deg, #140d0e 0%, var(--blood-glow-dim) 100%);
+    border-color: rgba(255, 0, 51, 0.2);
+    box-shadow: 0 0 15px rgba(255, 0, 51, 0.15);
+}
+
+.quest-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: flex-start; 
+    gap: 12px;
+}
+
+.quest-title { 
+    font-weight: 700; 
+    font-size: 1rem; 
+    color: #ffffff; 
+    letter-spacing: -0.3px;
+}
+
+.quest-meta { 
+    font-size: 0.7rem; 
+    color: var(--text-muted); 
+    text-transform: uppercase; 
+    margin-top: 4px; 
+    letter-spacing: 0.5px;
+}
+
+/* Live Dynamic Real-Time Countdown Box */
+.quest-timer { 
+    font-family: var(--font-display); 
+    font-size: 1.2rem; 
+    font-weight: 700; 
+    color: #ffffff; 
+    background: #090c0c; 
+    padding: 6px 12px; 
+    border-radius: 4px; 
+    border: 1px solid #1e2424;
+    white-space: nowrap;
+}
+
+.quest-card.failed .quest-timer { 
+    color: var(--blood-glow); 
+    border-color: rgba(255, 0, 51, 0.3);
+    text-shadow: 0 0 8px var(--blood-glow-bright);
+}
+
+/* DYNAMIC TRACKING INPUT (PROGRESS SLIDER) */
+.progress-control { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 6px; 
+}
+
+.progress-meta { 
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 0.75rem; 
+    color: var(--text-muted); 
+}
+
+/* Slider Track Styling */
+.progress-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #070909;
+    outline: none;
+    border-radius: 3px;
+}
+
+/* Slider Thumb Handle Controls */
+.progress-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--neon-cyan);
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--neon-cyan-glow);
+    transition: transform 0.1s;
+}
+
+.progress-slider::-webkit-slider-thumb:active {
+    transform: scale(1.2);
+}
+
+/* If the quest fails, lock the slider visibility states visually */
+.quest-card.failed .progress-slider {
+    background: #1a0f11;
+    pointer-events: none;
+}
+.quest-card.failed .progress-slider::-webkit-slider-thumb {
+    background: var(--text-muted);
+    box-shadow: none;
+}
+
+.quest-actions { 
+    display: flex; 
+    justify-content: flex-end; 
+}
+
+.btn-complete {
+    background: rgba(0, 255, 200, 0.04);
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.btn-complete:hover { 
+    background: var(--neon-cyan); 
+    color: #000000; 
+    box-shadow: 0 0 10px var(--neon-cyan-glow);
+}
+
+.quest-card.failed .btn-complete {
+    display: none; /* Hide action button if quest collapses into failure */
+}
+
+/* --- HISTORICAL ARCHIVE DATA LEDGER --- */
+.archive-panel {
+    margin-top: 10px;
+}
+
+.archive-panel .panel-header:hover {
+    background: #1b2222;
+}
+
+.archive-content { 
+    padding: 16px; 
+    overflow-x: auto; 
+}
+
+.hidden { 
+    display: none; 
+}
+
+.archive-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    font-size: 0.8rem; 
+    text-align: left; 
+}
+
+.archive-table th { 
+    color: var(--text-muted); 
+    padding: 10px; 
+    border-bottom: 1px solid var(--border-color);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.archive-table td { 
+    padding: 12px 10px; 
+    border-bottom: 1px solid #131818; 
+    color: #ffffff;
+}
+
+.status-tag { 
+    font-weight: 700; 
+    padding: 3px 8px; 
+    border-radius: 2px; 
+    font-size: 0.7rem; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-tag.success { 
+    background: rgba(0, 255, 200, 0.08); 
+    color: var(--neon-cyan); 
+    border: 1px solid rgba(0, 255, 200, 0.2);
+}
+
+.status-tag.failed { 
+    background: rgba(255, 0, 51, 0.08); 
+    color: var(--blood-glow); 
+    border: 1px solid rgba(255, 0, 51, 0.2);
+}
+
+/* --- SCROLLBAR STYLE DESIGN CUSTOMIZATION --- */
+.quests-grid::-webkit-scrollbar,
+.archive-content::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.quests-grid::-webkit-scrollbar-track,
+.archive-content::-webkit-scrollbar-track {
+    background: #080a0a;
+}
+
+.quests-grid::-webkit-scrollbar-thumb,
+.archive-content::-webkit-scrollbar-thumb {
+    background: #222a2a;
+    border-radius: 3px;
+}
+
+.quests-grid::-webkit-scrollbar-thumb:hover,
+.archive-content::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-cyan);
+}
+
+/* --- ANIMATION KEYFRAME SCHEMATICS --- */
+@keyframes terminalPulse { 
+    0%, 100% { opacity: 1; } 
+    50% { opacity: 0.3; } 
+}
+
+@keyframes corePulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* --- HARDWARE PHONE RESPONSIVE BREAK OVERRIDES --- */
+@media (max-width: 900px) {
+    .workspace-layout { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .interface-container {
+        padding: 10px;
+        gap: 15px;
+    }
+    
+    .system-header { 
+        flex-direction: column; 
+        gap: 10px; 
+        align-items: flex-start; 
+    }
+    
+    .header-right { 
+        width: 100%; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        border-top: 1px solid var(--border-color); 
+        padding-top: 10px; 
+    }
+    
+    .profile-grid { 
+        flex-direction: column; 
+        align-items: stretch; 
+        gap: 14px; 
+    }
+    
+    .level-badge { 
+        flex-direction: row; 
+        justify-content: space-between; 
+        padding: 10px 16px; 
+    }
+    
+    .level-badge .val { 
+        font-size: 1.6rem; 
+    }
+    
+    .quest-header { 
+        flex-direction: column; 
+        gap: 12px; 
+    }
+    
+    .quest-timer { 
+        width: 100%; 
+        text-align: center; 
+        font-size: 1.3rem;
+        padding: 8px;
+    }
+    
+    input[type="text"], select, .btn-submit {
+        font-size: 16px; /* Blocks iOS and Android browser viewport zooming on touch inputs */
+    }
+}

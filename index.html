@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CHRONOS-TRIAL // Tower of Trials</title>
+    <!-- Importing high-fidelity monospace and tactical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="cyber-overlay"></div>
+
+    <div class="interface-container">
+        <!-- GLOBAL SYSTEMS HEADER -->
+        <header class="system-header">
+            <div class="header-left">
+                <h1 class="logo">CHRONOS_TRIAL v1.0</h1>
+                <div class="uptime-block">SYS.UPTIME: <span id="uptime-counter">00:00:00</span></div>
+            </div>
+            <div class="header-right">
+                <div class="clock-block">TIME // <span id="global-clock">00:00:00</span></div>
+                <div class="network-status"><span class="pulse-dot"></span> LINK_SECURE</div>
+            </div>
+        </header>
+
+        <!-- CHARACTER STATUS PROFILE (STATS LAYER) -->
+        <section class="profile-panel">
+            <div class="panel-header">[ OPERATOR_STATUS ]</div>
+            <div class="profile-grid">
+                <div class="level-badge">
+                    <span class="lbl">LEVEL</span>
+                    <span id="player-level" class="val">01</span>
+                </div>
+                <div class="xp-container">
+                    <div class="xp-labels">
+                        <span>EXP PROGRESSION</span>
+                        <span id="xp-text">0 / 100 XP</span>
+                    </div>
+                    <div class="xp-bar-outer">
+                        <div id="xp-bar-inner" class="xp-bar-inner" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="status-ticker">> COGNITIVE COOLDOWN: OPTIMAL // STANDBY FOR QUEST CONFIGURATION...</div>
+        </section>
+
+        <!-- TWO-COLUMN RUNTIME LAYOUT -->
+        <main class="workspace-layout">
+            
+            <!-- LEFT: DEPLOYMENT MODULE -->
+            <section class="control-panel">
+                <div class="panel-header">[ QUEST_DEPLOYMENT_TERMINAL ]</div>
+                <form id="quest-form" class="deployment-form">
+                    <div class="form-group">
+                        <label for="quest-title">> ENTER TARGET OBJECTIVE / SYLLABUS TOPIC</label>
+                        <input type="text" id="quest-title" placeholder="e.g., Quantitative Aptitude: Data Interpretation" required autocomplete="off">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quest-difficulty">> WEIGHT CLASS</label>
+                            <select id="quest-difficulty">
+                                <option value="bronze">BRONZE CLASS</option>
+                                <option value="silver">SILVER CLASS</option>
+                                <option value="gold">GOLD CLASS</option>
+                                <option value="shadow">SHADOW CLASS</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quest-duration">> TIME ALLOCATION</label>
+                            <select id="quest-duration">
+                                <option value="1">1 DAY (24 HRS)</option>
+                                <option value="2">2 DAYS (48 HRS)</option>
+                                <option value="3">3 DAYS (72 HRS)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">INITIALIZE TRIAL RUN</button>
+                </form>
+            </section>
+
+            <!-- RIGHT: ACTIVE QUEST MATRIX -->
+            <section class="display-panel">
+                <div class="panel-header">[ ACTIVE_TRIAL_BOARDS ]</div>
+                <div id="active-quests-container" class="quests-grid">
+                    <!-- Dynamic cards will inject here via JavaScript -->
+                    <div class="empty-notice">> NO ACTIVE TRIALS DETECTED. CHOOSE A OBJECTIVE TO GENERATE QUEST SECTOR.</div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- HISTORICAL RECORD LEDGER -->
+        <section class="archive-panel">
+            <div class="panel-header" id="archive-toggle" style="cursor: pointer;">[ + HISTORICAL_TRIAL_LOGS ]</div>
+            <div id="archive-container" class="archive-content hidden">
+                <table class="archive-table">
+                    <thead>
+                        <tr>
+                            <th>SECTOR / OBJECTIVE</th>
+                            <th>CLASS</th>
+                            <th>DURATION</th>
+                            <th>RESOLUTION</th>
+                        </tr>
+                    </thead>
+                    <tbody id="archive-rows">
+                        <!-- History rows injected dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Script assets sequence -->
+    <script src="storage.js"></script>
+    <script src="timer.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
