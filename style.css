@@ -618,3 +618,108 @@ input[type="text"]:focus, select:focus {
         font-size: 16px; /* Blocks iOS and Android browser viewport zooming on touch inputs */
     }
 }
+
+/* ==========================================================================
+   SYSTEM WIPE CUSTOM MODAL COMPONENT (RED THEME OVERRIDE)
+   ========================================================================== */
+
+.modal-overlay {
+    display: none; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh; 
+    background: rgba(0, 0, 0, 0.85); 
+    backdrop-filter: blur(4px); 
+    z-index: 9999; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.modal-box.alert-theme {
+    background: #0d0204; 
+    border: 2px solid #ff0033; 
+    width: 90%; 
+    max-width: 500px; 
+    padding: 25px; 
+    font-family: 'JetBrains Mono', monospace; 
+    box-shadow: 0 0 30px rgba(255, 0, 51, 0.25); 
+    position: relative; 
+    border-radius: 4px;
+}
+
+.modal-box .modal-header {
+    color: #ff0033; 
+    font-weight: 700; 
+    font-size: 1.1rem; 
+    border-bottom: 1px solid #ff0033; 
+    padding-bottom: 10px; 
+    margin-bottom: 15px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px;
+}
+
+.pulse-dot-red {
+    display: inline-block; 
+    width: 10px; 
+    height: 10px; 
+    background: #ff0033; 
+    border-radius: 50%; 
+    animation: alertPulse 1s infinite alternate;
+}
+
+.modal-box .modal-body {
+    color: #e5e7eb; 
+    font-size: 0.85rem; 
+    line-height: 1.6; 
+    margin-bottom: 25px;
+}
+
+.modal-actions {
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 15px;
+}
+
+.btn-abort {
+    background: transparent; 
+    border: 1px solid #6b7280; 
+    color: #9ca3af; 
+    font-family: 'JetBrains Mono', monospace; 
+    font-size: 0.8rem; 
+    padding: 6px 16px; 
+    cursor: pointer; 
+    transition: all 0.2s; 
+    border-radius: 2px;
+}
+.btn-abort:hover {
+    border-color: #9ca3af;
+    color: #ffffff;
+}
+
+.btn-purge {
+    background: #ff0033; 
+    border: 1px solid transparent; 
+    color: #ffffff; 
+    font-family: 'JetBrains Mono', monospace; 
+    font-size: 0.8rem; 
+    font-weight: 700; 
+    padding: 6px 16px; 
+    cursor: pointer; 
+    transition: all 0.2s; 
+    border-radius: 2px; 
+    box-shadow: 0 0 10px rgba(255, 0, 51, 0.4);
+}
+.btn-purge:hover {
+    background: #cc0029;
+}
+
+/* Animations Matrix */
+@keyframes alertPulse {
+    from { opacity: 0.3; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1.1); }
+}

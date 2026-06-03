@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         activeContainer: document.getElementById('active-quests-container'),
         archiveToggle: document.getElementById('archive-toggle'),
         archiveContainer: document.getElementById('archive-container'),
-        archiveRows: document.getElementById('archive-rows')
+        archiveRows: document.getElementById('archive-rows'),
+        wipeBtn: document.getElementById('wipe-system-btn')
     };
 
     /**
@@ -65,6 +66,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 dom.archiveToggle.textContent = '[ - HISTORICAL_TRIAL_LOGS ]';
             }
         });
+
+        // Trigger total database purge override via Custom Red Theme Modal
+        if (dom.wipeBtn) {
+            const modal = document.getElementById('wipe-modal');
+            const modalText = document.getElementById('wipe-modal-text');
+            const cancelBtn = document.getElementById('wipe-modal-cancel');
+            const confirmBtn = document.getElementById('wipe-modal-confirm');
+            let confirmationStep = 1;
+
+            // Open Modal Handler
+            dom.wipeBtn.addEventListener('click', () => {
+                confirmationStep = 1;
+                modalText.innerHTML = `> <strong>WARNING (STAGE 01/02):</strong> USER TERMINAL OVERRIDE INITIATED.<br><br>Executing this command will destroy your level parameters, ongoing trial logs, and historical databases permanently. Proceed with initialization?`;
+                confirmBtn.textContent = "INITIALIZE PURGE";
+                modal.style.display = 'flex';
+            });
+
+            // Cancel / Close Handler
+            cancelBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            // Close modal if user clicks background overlay area directly
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.style.display = 'none';
+            });
+
+            // Multi-Stage Processing Confirm Handler
+            confirmBtn.addEventListener('click', () => {
+                if (confirmationStep === 1) {
+                    // Advance to secondary lockdown authorization
+                    confirmationStep = 2;
+                    modalText.innerHTML = `> <strong>CRITICAL DATA LOCKDOWN (STAGE 02/02):</strong><br><br>Are you completely certain? There is no recovery loop available for the CHRONOS matrix once flushed. Click confirm to zero local memory.`;
+                    confirmBtn.textContent = "EXECUTE TOTAL WIPE";
+                } else if (confirmationStep === 2) {
+                    // Final confirmation passed -> Clear memory array and hard refresh core layout
+                    localStorage.clear();
+                    window.location.reload();
+                }
+            });
+        }
     }
 
     /**

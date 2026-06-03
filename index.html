@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CHRONOS-TRIAL // Tower of Trials</title>
-    <!-- Importing high-fidelity monospace and tactical fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
@@ -15,19 +14,20 @@
     <div class="cyber-overlay"></div>
 
     <div class="interface-container">
-        <!-- GLOBAL SYSTEMS HEADER -->
         <header class="system-header">
             <div class="header-left">
                 <h1 class="logo">CHRONOS_TRIAL v1.0</h1>
                 <div class="uptime-block">SYS.UPTIME: <span id="uptime-counter">00:00:00</span></div>
             </div>
-            <div class="header-right">
+            <div class="header-right" style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
                 <div class="clock-block">TIME // <span id="global-clock">00:00:00</span></div>
-                <div class="network-status"><span class="pulse-dot"></span> LINK_SECURE</div>
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <button id="wipe-system-btn" style="background: transparent; border: 1px dashed #6b7280; color: #6b7280; font-family: var(--font-mono); font-size: 0.7rem; padding: 2px 6px; cursor: pointer; border-radius: 3px; transition: all 0.2s;" onmouseover="this.style.borderColor='#ff0033'; this.style.color='#ff0033'" onmouseout="this.style.borderColor='#6b7280'; this.style.color='#6b7280'">[ SYSTEM_WIPE ]</button>
+                    <div class="network-status"><span class="pulse-dot"></span> LINK_SECURE</div>
+                </div>
             </div>
         </header>
 
-        <!-- CHARACTER STATUS PROFILE (STATS LAYER) -->
         <section class="profile-panel">
             <div class="panel-header">[ OPERATOR_STATUS ]</div>
             <div class="profile-grid">
@@ -48,10 +48,8 @@
             <div class="status-ticker">> COGNITIVE COOLDOWN: OPTIMAL // STANDBY FOR QUEST CONFIGURATION...</div>
         </section>
 
-        <!-- TWO-COLUMN RUNTIME LAYOUT -->
         <main class="workspace-layout">
             
-            <!-- LEFT: DEPLOYMENT MODULE -->
             <section class="control-panel">
                 <div class="panel-header">[ QUEST_DEPLOYMENT_TERMINAL ]</div>
                 <form id="quest-form" class="deployment-form">
@@ -84,18 +82,15 @@
                 </form>
             </section>
 
-            <!-- RIGHT: ACTIVE QUEST MATRIX -->
             <section class="display-panel">
                 <div class="panel-header">[ ACTIVE_TRIAL_BOARDS ]</div>
                 <div id="active-quests-container" class="quests-grid">
-                    <!-- Dynamic cards will inject here via JavaScript -->
-                    <div class="empty-notice">> NO ACTIVE TRIALS DETECTED. CHOOSE A OBJECTIVE TO GENERATE QUEST SECTOR.</div>
+                    <div class="empty-notice">> NO ACTIVE TRIALS DETECTED. CHOOSE A SILLABUS OBJECTIVE TO GENERATE QUEST SECTOR.</div>
                 </div>
             </section>
 
         </main>
 
-        <!-- HISTORICAL RECORD LEDGER -->
         <section class="archive-panel">
             <div class="panel-header" id="archive-toggle" style="cursor: pointer;">[ + HISTORICAL_TRIAL_LOGS ]</div>
             <div id="archive-container" class="archive-content hidden">
@@ -109,14 +104,32 @@
                         </tr>
                     </thead>
                     <tbody id="archive-rows">
-                        <!-- History rows injected dynamically -->
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
         </section>
     </div>
 
-    <!-- Script assets sequence -->
+    <div id="wipe-modal" class="modal-overlay">
+        <div class="modal-box alert-theme">
+            
+            <div class="modal-header">
+                <span class="pulse-dot-red"></span>
+                CRITICAL SYSTEM ALERT
+            </div>
+
+            <div id="wipe-modal-text" class="modal-body">
+                > TERMINAL NOTICE: COMPLETE DATA PURGE REQUESTED.<br><br>
+                Executing this command overrides the local state database. All level metrics, accumulated experience data, active countdown vectors, and historical archives will be permanently destroyed.
+            </div>
+
+            <div class="modal-actions">
+                <button id="wipe-modal-cancel" class="btn-abort">ABORT PROTOCOL</button>
+                <button id="wipe-modal-confirm" class="btn-purge">CONFIRM PURGE</button>
+            </div>
+        </div>
+    </div>
+
     <script src="storage.js"></script>
     <script src="timer.js"></script>
     <script src="app.js"></script>
